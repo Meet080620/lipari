@@ -2,8 +2,25 @@
 
 import { useState } from 'react';
 import DishShowcase from '@/components/DishShowcase';
+type MenuCategory = {
+  name: string;
+  subcategories: string[];
+  dishes: {
+    name: string;
+    subcategory: string;
+    image: string;
+    description: string;
+    price: string;
+    weight: string;
+    prepTime: string;
+    calories: string;
+    cuisine: string;
+    ingredients: string[];
+    icons?: { label: string; icon: string }[];
+  }[];
+};
 
-const menuData = {
+const menuData: Record<string, MenuCategory> = {
   spuntini: {
     name: 'Spuntini Starters',
     subcategories: ['veg', 'non-veg'],
@@ -513,7 +530,8 @@ export default function MenuPage() {
   const [activeSubcategory, setActiveSubcategory] = useState<string | null>(null);
 
   const categories = Object.keys(menuData);
-  const currentCategory = menuData[activeCategory];
+  const currentCategory = menuData[activeCategory]; // ✅ Valid now
+
 
   const filteredDishes = currentCategory.dishes.filter((dish: { subcategory: string; }) =>
     activeSubcategory ? dish.subcategory === activeSubcategory : true
